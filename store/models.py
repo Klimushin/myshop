@@ -33,6 +33,10 @@ class Product(models.Model):
         verbose_name=_('a product title'),
         help_text=_('128 character or fewer'),
     )
+    image = models.ImageField(
+        upload_to="static/images",
+        default="default/product.png",
+    )
     price = models.DecimalField(
         max_digits=10, decimal_places=2,
         validators=[MinValueValidator(0)],
