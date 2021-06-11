@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url "store:list" %}">My SuperShop</a>
+        <div class="d-block" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                {% if request.user.is_staff %}
+                    <li class="nav-item"><a href="{% url "admin:index" %}" class="nav-link">Admin page</a></li>
+{#                    <li class="nav-item"><a href="{% url "store:create" %}" class="nav-link">Create</a></li>#}
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+{#                        <a href="{% url "purchase:checkout" %}" class="nav-link">My Cart#}
+                            {% if cart_entities_count %}
+                                <span class="badge bg-dark">{{ cart_entities_count }}</span>
+                            {% endif %}
+                        </a>
+                    </li>
+{#                    <li class="nav-item"><a href="{% url "purchase:list" %}" class=" nav-link">My Purchases</a></li>#}
+                    <li class="nav-item"><a href="{% url "user:profile" %}" class=" nav-link">Hello, {{ request.user }}</a>
+                    </li>
+                    <li class="nav-item"><a href="{% url "user:logout" %}" class="nav-link">Logout</a></li>
+                {% else %}
+                    <li class="nav-item"><a href="{% url "user:sign-in" %}" class="nav-link">Sing In</a></li>
+                    <li class="nav-item"><a href="{% url "user:sign-up" %}" class="nav-link">Sing Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

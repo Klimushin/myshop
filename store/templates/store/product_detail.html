@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <img src="{{ object.image.url }}" alt="{{ object.slug }}" class="col-6">
+        <div class="col-6 justify-content-center">
+            <div class="row">
+                <h5 class="text">{{ object }}</h5>
+            </div>
+            <div class="row">
+                <span class="text"><b>${{ object.price }}</b></span>
+            </div>
+            <div class="row">
+                {{ object.description|linebreaks }}
+            </div>
+        </div>
+    </div>
+    {% if request.user.is_staff %}
+        <div class="row">
+            <div class="col offset-6">
+                <a href="{% url "store:update" slug=object.slug %}" class="btn btn-primary">Update</a>
+                <a href="{% url "store:delete" slug=object.slug %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

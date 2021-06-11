@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for object in object_list %}
+            <div class="col">
+                <div class="card">
+                    <a href="{% url "store:detail" pk=object.pk %}">
+                        <img src="{{ object.image.url }}" class="card-img-top" alt="{{ object.slug }}">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ object }}</h5>
+                        <p class="card-text"><b>${{ object.price }}</b></p>
+                        <p class="card-text">{{ object.description|linebreaks }}</p>
+                    </div>
+                    <div class="card-footer">
+                        {% if request.user.is_authenticated %}
+                            <form action="#" method="post" class="form-inline mt-1">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ object.id }}">
+                                <button type="submit" class="btn btn-success">Buy Now</button>
+                            </form>
+{#                            <form action="{% url "purchase:add" %}" method="post" class="form-inline mt-1">#}
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ object.id }}">
+                                <button type="submit" class="btn btn-secondary">Add to Cart</button>
+                            </form>
+                        {% endif %}
+                        <a href="{% url "store:detail" pk=object.pk %}" class="btn mt-1">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

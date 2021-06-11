@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block doctitle %}Delete Form | {{ block.super }}{% endblock %}
+{% block content %}
+  <form method="post" class="row justify-content-center">
+    {% csrf_token %}
+    <div class="col-12">Delete {{ object }} permanently. Are you sure?</div>
+    <fieldset>
+      <button type="submit" class="btn btn-danger">Submit</button>
+      <a href="{{ request.headers.referer }}" class="btn btn-secondary">Cancel</a>
+    </fieldset>
+  </form>
+{% endblock %}

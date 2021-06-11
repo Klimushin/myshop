@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{% url "store:list" %}">Shop</a>
+        <div class="d-block" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-link"><a>Hello, </a>{{ request.user }}</li>
+
+
+                {#                    <li class="nav-item"><a href="{% url "store:create" %}" class="nav-link">Create</a></li>#}
+                {#                {% endif %}#}
+                {% if not request.user.is_authenticated %}
+                    <li class="nav-item"><a href="{% url "user:sign-in" %}" class="nav-link">Sing In</a></li>
+                    <li class="nav-item"><a href="{% url "user:sign-up" %}" class="nav-link">Sing Up</a></li>
+                    {#                    <li class="nav-item">#}
+                    {#                        <a href="{% url "purchase:checkout" %}" class="nav-link">My Cart#}
+                    {#                            {% if cart_entities_count %}#}
+                    {#                                <span class="badge bg-dark">{{ cart_entities_count }}</span>#}
+                    {#                            {% endif %}#}
+                    {#                        </a>#}
+                    {#                    </li>#}
+                    {#                    <li class="nav-item"><a href="{% url "purchase:list" %}" class=" nav-link">My Purchases</a></li>#}
+                    {#                    <li class="nav-item"><a href="{% url "user:profile" %}" class=" nav-link">{{ request.user }}</a>#}
+                    {#                    </li>#}
+
+                {% else %}
+                    {% if request.user.is_staff %}
+                        <li class="nav-item"><a href="admin/" class="nav-link">Admin Page</a></li>
+                    {% else %}
+                        <li class="nav-item"><a href="#" class="nav-link">My orders</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">My cart</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a href="{% url "user:logout" %}" class="nav-link">Logout</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
